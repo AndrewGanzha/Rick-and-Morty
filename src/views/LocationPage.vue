@@ -1,0 +1,5 @@
+<template>
+    <div class="container">
+        <h2>Locations</h2>
+    </div>
+</template>

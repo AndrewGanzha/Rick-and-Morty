@@ -1,3 +1,7 @@
 <template>
-  <p>123</p>
+  <HeaderUI/>
+  <main>
+    <router-view></router-view>
+  </main>
+  <FooterUI/>
 </template>
