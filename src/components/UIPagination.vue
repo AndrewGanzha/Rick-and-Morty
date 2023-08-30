@@ -1,17 +1,32 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+defineProps({
+  currentPage: Number,
+  totalPages: Number
+})
 
-const currentPage = ref<Number>()
-const totalPages = ref<Number>()
 </script>
 
 <template>
-    <div class="pagination">
-    <button
-      v-for="pageNumber in totalPages"
-      :key="pageNumber"
-    >
-      {{ pageNumber }}
-    </button>
-  </div>
+  <ul class="pagination">
+    <li>
+      <button v-for="pageNumber in totalPages" :key="pageNumber">
+        {{ pageNumber }}
+      </button>
+    </li>
+  </ul>
 </template>
+
+<style scoped>
+.pagination {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+button {
+  border: none;
+  font-size: 21px;
+  cursor: pointer;
+  background: none;
+}
+</style>

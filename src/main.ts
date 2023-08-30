@@ -8,5 +8,4 @@ import Footer from './components/UIFooter.vue'
 const app = createApp(App)
 app.component('HeaderUI', Header)
 app.component('FooterUI', Footer)
-app.use(router)
-app.mount('#app')
+app.use(router).mount('#app')
