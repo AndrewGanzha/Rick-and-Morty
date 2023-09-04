@@ -2,7 +2,7 @@
 import Pagination from '../components/UIPagination.vue'
 import axios from 'axios'
 import { ref, onMounted, watch } from 'vue'
-
+const currentPage = ref<number>(1)
 interface CharactersProps {
   id: number
   name: string
@@ -13,7 +13,6 @@ interface CharactersProps {
 
 const baseUrl = 'https://rickandmortyapi.com/api/character?page='
 const totalPages = ref<number>()
-const currentPage = ref<number>(1)
 const characters = ref<CharactersProps[] | null>(null)
 
 watch(currentPage, async () => {

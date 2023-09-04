@@ -3,7 +3,6 @@ defineProps({
   currentPage: Number,
   totalPages: Number
 })
-
 </script>
 
 <template>
