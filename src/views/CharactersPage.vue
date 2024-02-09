@@ -28,6 +28,10 @@ onMounted(async () => {
     console.log(error)
   }
 })
+
+function nextPages(number: number) {
+  currentPage.value = number;
+}
 </script>
 
 <template>
@@ -43,7 +47,7 @@ onMounted(async () => {
         </div>
       </li>
     </ul>
-    <Pagination :totalPages="totalPages" :current-page="currentPage" />
+    <Pagination :totalPages="totalPages" :current-page="currentPage" @next-pages="nextPages"/>
   </div>
 </template>
 
