@@ -3,6 +3,7 @@ import Pagination from '../components/UIPagination.vue'
 import axios from 'axios'
 import { ref, onMounted, watch } from 'vue'
 import { type CharactersProps } from '../types/type';
+import {loadFromServer} from "@/plugins/server";
 
 const currentPage = ref<number>(1)
 const baseUrl = 'https://rickandmortyapi.com/api/character?page='
@@ -20,13 +21,9 @@ watch(currentPage, async () => {
 })
 
 onMounted(async () => {
-  try {
-    const response = await axios.get(`https://rickandmortyapi.com/api/character?page=${currentPage.value}`)
-    characters.value = response.data.results
-    totalPages.value = response.data.info.pages
-  } catch (error) {
-    console.log(error)
-  }
+  const response = await loadFromServer(baseUrl, currentPage.value);
+  characters.value = response.data.results
+  totalPages.value = response.data.info.pages
 })
 
 function nextPages(number: number) {

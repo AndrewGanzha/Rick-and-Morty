@@ -2,6 +2,7 @@
 import Pagination from '../components/UIPagination.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
+import {loadFromServer} from "@/plugins/server";
 
 interface EpisodesProps {
   id: number
@@ -10,18 +11,15 @@ interface EpisodesProps {
   dimension: string
 }
 
-const episodes = ref<EpisodesProps[] | null>(null)
+const locations = ref<EpisodesProps[] | null>(null)
 const totalPages = ref<number>()
 const currentPage = ref<number>(1)
+const baseUrl = 'https://rickandmortyapi.com/api/location?page='
 
 onMounted(async () => {
-  try {
-    const response = await axios.get('https://rickandmortyapi.com/api/location?page=1')
-    episodes.value = response.data.results
-    totalPages.value = response.data.info.pages
-  } catch (error) {
-    console.log(error)
-  }
+  const response = await loadFromServer(baseUrl, currentPage.value);
+  locations.value = response.data.results
+  totalPages.value = response.data.info.pages
 })
 </script>
 
@@ -29,10 +27,10 @@ onMounted(async () => {
   <div class="container">
     <h2>Locations</h2>
     <ul>
-      <li v-for="episode in episodes" :key="episode.id">
-        <h3>Name: {{ episode.name }}</h3>
-        <p>Dimension: {{ episode.dimension }}</p>
-        <p>Type: {{ episode.type }}</p>
+      <li v-for="location in locations" :key="location.id">
+        <h3>Name: {{ location.name }}</h3>
+        <p>Dimension: {{ location.dimension }}</p>
+        <p>Type: {{ location.type }}</p>
       </li>
     </ul>
     <Pagination :totalPages="totalPages" :current-page="currentPage" />
