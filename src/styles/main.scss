@@ -30,3 +30,15 @@ input {
   font-size: 18px;
   padding: 10px;
 }
+
+ul {
+  padding-top: 30px;
+  padding-bottom: 20px;
+  li {
+    gap: 10px;
+    display: flex;
+    list-style: none;
+    line-height: 24px;
+    flex-direction: column;
+  }
+}

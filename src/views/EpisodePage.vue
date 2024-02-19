@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import Pagination from '../components/UIPagination.vue'
-import axios from 'axios';
-import {ref, onMounted} from 'vue';
+import axios from 'axios'
+import { ref, onMounted } from 'vue'
 
 interface EpisodesProps {
-    id: number,
-    name: string,
-    episode: string
+  id: number
+  name: string
+  episode: string
 }
 
 const episodes = ref<EpisodesProps[] | null>(null)
@@ -18,39 +18,29 @@ onMounted(async () => {
     const response = await axios.get('https://rickandmortyapi.com/api/episode?page=1')
     episodes.value = response.data.results
     totalPages.value = response.data.info.pages
-  }  catch (error) {
+  } catch (error) {
     console.log(error)
   }
 })
 </script>
 
 <template>
-    <div class="container">
-        <h2>Episodes</h2>
-        <ul>
-            <li v-for="episode in episodes" :key="episode.id">
-                <h3>Name: {{ episode.name }}</h3>
-                <p>Episode: {{ episode.episode }}</p>
-            </li>
-        </ul>
-        <Pagination :totalPages="totalPages" :current-page="currentPage" />
-    </div>
+  <div class="container">
+    <h2>Episodes</h2>
+    <ul>
+      <li v-for="episode in episodes" :key="episode.id">
+        <h3>Name: {{ episode.name }}</h3>
+        <p>Episode: {{ episode.episode }}</p>
+      </li>
+    </ul>
+    <Pagination :totalPages="totalPages" :current-page="currentPage"/>
+  </div>
 </template>
 
-
 <style scoped lang="scss">
-    ul {
-        padding-top: 30px;
-        padding-bottom: 20px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        li {
-            gap: 10px;
-            display: flex;
-            list-style: none;
-            line-height: 24px;
-            flex-direction: column;
-        }
-    }
+ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
 </style>
