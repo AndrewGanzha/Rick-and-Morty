@@ -12,7 +12,7 @@ const characters = ref<CharactersProps[] | null>(null)
 
 watch(currentPage, async () => {
   try {
-    const response = await axios.get(`${baseUrl} + ${currentPage.value}`)
+    const response = await loadFromServer(baseUrl, currentPage.value);
     characters.value = response.data.results
     totalPages.value = response.data.info.pages
   } catch (error) {

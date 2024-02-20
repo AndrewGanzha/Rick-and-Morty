@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Pagination from '../../components/UIPagination.vue'
 import axios from 'axios'
-import { ref, onMounted } from 'vue'
+import {ref, onMounted, watch} from 'vue'
 import { loadFromServer } from '@/plugins/server'
 import {baseUrl} from '@/views/LocationPage/index.ts'
 
@@ -16,6 +16,15 @@ const locations = ref<EpisodesProps[] | null>(null)
 const totalPages = ref<number>()
 const currentPage = ref<number>(1)
 
+watch(currentPage, async () => {
+  try {
+    const response = await loadFromServer(baseUrl, currentPage.value);
+    locations.value = response.data.results
+    totalPages.value = response.data.info.pages
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 onMounted(async () => {
   const response = await loadFromServer(baseUrl, currentPage.value)
@@ -25,6 +34,10 @@ onMounted(async () => {
     totalPages.value = response.data.info.pages
   }
 })
+
+function nextPages(number: number) {
+  currentPage.value = number
+}
 </script>
 
 <template>
@@ -37,7 +50,7 @@ onMounted(async () => {
         <p>Type: {{ location.type }}</p>
       </li>
     </ul>
-    <Pagination :totalPages="totalPages" :current-page="currentPage" />
+    <Pagination :totalPages="totalPages" :current-page="currentPage" @next-pages="nextPages"/>
   </div>
 </template>
 
