@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Pagination from '../components/UIPagination.vue'
+import Pagination from '@/components/UIPagination.vue'
 import axios from 'axios'
 import { ref, onMounted, watch } from 'vue'
-import { type CharactersProps } from '../types/type';
-import {loadFromServer} from "@/plugins/server";
+import { type CharactersProps } from '@/types/type.ts'
+import { loadFromServer } from '@/plugins/server'
+import {baseUrl} from "@/views/CharactersPage/index";
 
 const currentPage = ref<number>(1)
-const baseUrl = 'https://rickandmortyapi.com/api/character?page='
 const totalPages = ref<number>()
 const characters = ref<CharactersProps[] | null>(null)
 
@@ -21,13 +21,16 @@ watch(currentPage, async () => {
 })
 
 onMounted(async () => {
-  const response = await loadFromServer(baseUrl, currentPage.value);
-  characters.value = response.data.results
-  totalPages.value = response.data.info.pages
+  const response = await loadFromServer(baseUrl, currentPage.value)
+
+  if (response) {
+    characters.value = response.data.results
+    totalPages.value = response.data.info.pages
+  }
 })
 
 function nextPages(number: number) {
-  currentPage.value = number;
+  currentPage.value = number
 }
 </script>
 
@@ -44,7 +47,7 @@ function nextPages(number: number) {
         </div>
       </li>
     </ul>
-    <Pagination :totalPages="totalPages" :current-page="currentPage" @next-pages="nextPages"/>
+    <Pagination :totalPages="totalPages" :current-page="currentPage" @next-pages="nextPages" />
   </div>
 </template>
 

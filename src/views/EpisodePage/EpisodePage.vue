@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import Pagination from '../components/UIPagination.vue'
+import Pagination from '../../components/UIPagination.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import {loadFromServer} from "@/plugins/server";
+import { loadFromServer } from '@/plugins/server'
+import {baseUrl}  from './index.ts'
 
 interface EpisodesProps {
   id: number
@@ -13,12 +14,14 @@ interface EpisodesProps {
 const episodes = ref<EpisodesProps[] | null>(null)
 const totalPages = ref<number>()
 const currentPage = ref<number>(1)
-const baseUrl = 'https://rickandmortyapi.com/api/episode?page='
 
 onMounted(async () => {
-  const response = await loadFromServer(baseUrl, currentPage.value);
-  episodes.value = response.data.results
-  totalPages.value = response.data.info.pages
+  const response = await loadFromServer(baseUrl, currentPage.value)
+
+  if (response) {
+    episodes.value = response.data.results
+    totalPages.value = response.data.info.pages
+  }
 })
 </script>
 
@@ -31,7 +34,7 @@ onMounted(async () => {
         <p>Episode: {{ episode.episode }}</p>
       </li>
     </ul>
-    <Pagination :totalPages="totalPages" :current-page="currentPage"/>
+    <Pagination :totalPages="totalPages" :current-page="currentPage" />
   </div>
 </template>
 
