@@ -59,6 +59,8 @@ ul {
   flex-wrap: wrap;
   gap: 20px;
   li {
+    width: 300px;
+    height: 400px;
     gap: 10px;
     display: flex;
     flex-direction: column;

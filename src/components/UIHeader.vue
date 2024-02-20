@@ -4,7 +4,6 @@
     <router-link to="/">Characters</router-link>
     <router-link to="/episodes">Episodes</router-link>
     <router-link to="/locations">Locations</router-link>
-    <input type="text" placeholder="Search..." />
   </header>
 </template>
 
