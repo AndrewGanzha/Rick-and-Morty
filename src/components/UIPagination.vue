@@ -3,12 +3,19 @@ defineProps({
   currentPage: Number,
   totalPages: Number
 })
+
+const emits = defineEmits(['next-pages'])
 </script>
 
 <template>
   <ul class="pagination">
     <li>
-      <button v-for="pageNumber in totalPages" :key="pageNumber">
+      <button
+        v-for="pageNumber in totalPages"
+        :class="{ 'active-page': pageNumber === currentPage }"
+        :key="pageNumber"
+        @click="emits('next-pages', pageNumber)"
+      >
         {{ pageNumber }}
       </button>
     </li>
@@ -20,6 +27,15 @@ defineProps({
   display: flex;
   flex-direction: row;
   list-style: none;
+}
+
+.active-page {
+  color: green;
+  font-size: 25px;
+}
+
+li {
+  flex-direction: row;
 }
 
 button {

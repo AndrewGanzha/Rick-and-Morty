@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import CharactersPage from '../views/CharactersPage.vue'
-import EpisodePage from '../views/EpisodePage.vue'
-import LocationPage from '../views/LocationPage.vue'
+import CharactersPage from '../views/CharactersPage/CharactersPage.vue'
+import EpisodePage from '../views/EpisodePage/EpisodePage.vue'
+import LocationPage from '../views/LocationPage/LocationPage.vue'
 
 const routes = [
   { path: '/', component: CharactersPage },
