@@ -19,8 +19,11 @@ const currentPage = ref<number>(1)
 
 onMounted(async () => {
   const response = await loadFromServer(baseUrl, currentPage.value)
-  locations.value = response.data.results
-  totalPages.value = response.data.info.pages
+
+  if(response) {
+    locations.value = response.data.results
+    totalPages.value = response.data.info.pages
+  }
 })
 </script>
 
